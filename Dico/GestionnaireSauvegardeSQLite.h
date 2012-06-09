@@ -20,10 +20,8 @@ public:
     void sauvegarderMot(Mot &mot);
     void initDB();
     void selectMot();
-
-
-
-
+    void chargerMots10(Dictionnaire *dico, bool effacerExistant);
+    void test();
 private:
     QSqlDatabase m_db;
 

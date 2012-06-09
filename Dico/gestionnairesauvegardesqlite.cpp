@@ -14,6 +14,56 @@ GestionnaireSauvegardeSQLite::GestionnaireSauvegardeSQLite(QObject* parent)
 {
 }
 
+void GestionnaireSauvegardeSQLite::chargerMots10(Dictionnaire *dico, bool effacerExistant)
+{
+    qDebug() << "Dans la fonction 10 ";
+        //on cherche en BDD 10 mots au hasard
+        QString select10 = "SELECT motid, nomMot, texte, nomTag FROM Mots, Tags, Definitions, Apourdef, Apourtag WHERE Mots.motid = Apourdef.FK_Motid AND Definitions.defid = Apourdef.FK_Defid AND Apourdef.apdid = Apourtag.FK_apdid AND Tags.tagid = Apourtag.FK_Tagid AND Apourdef.apdid IN (SELECT apdid FROM ApourDef ORDER BY RANDOM() LIMIT 1)";
+        QSqlQuery query = m_db.exec(select10);
+        m_db.commit();
+        debugConsole(query);
+        //on les ajoute dans le dico passÈ en parametre
+
+
+        int motid;
+        QString mot;
+        QString texte;
+        QList<QString> listag;
+
+
+        //on prend le premier rÈsultat
+         query.first();
+         motid = query.value(0).toInt();
+         mot = query.value(1).toString();
+         texte = query.value(2).toString();
+         listag.append(query.value(3).toString());
+         while (query.next())
+         {
+             if(motid == query.value(0).toInt())
+             {
+                 listag.append(query.value(3).toString());
+             }
+             else
+             {
+                 //on est sur un autre mot !
+                 //on crÈe le mot :
+                 dico->construireMot(mot,texte,listag);
+                 //on se prÈpare pour le prochain mot
+                 motid = query.value(0).toInt();
+                 listag.clear();
+                 //on prÈpare le prochain mot
+                 mot = query.value(1).toString();
+                 texte = query.value(2).toString();
+                 listag.append(query.value(3).toString());
+             }
+         }
+         //on prend le dernier rÈsultat
+         if(listag.length() > 0)
+         {
+             //on crÈe le mot :
+             dico->construireMot(mot,texte,listag);
+         }
+}
 
 GestionnaireSauvegardeSQLite::~GestionnaireSauvegardeSQLite()
 {
@@ -36,7 +86,6 @@ void GestionnaireSauvegardeSQLite::chargerMotsContenant(QString souschaine, Dict
     QString mot;
     QString texte;
     QList<QString> listag;
-
 
     //on prend le premier r√©sultat
      query.first();
