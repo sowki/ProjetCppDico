@@ -33,5 +33,7 @@ int main(int argc, char *argv[])
     //SQL.selectMot("orange (fruit)");
     SQL.chargerTout(&dico);
     dico.afficherMots();
+
+    dico.modifierMot();
     //return a.exec();
 }
