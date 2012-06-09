@@ -35,5 +35,6 @@ int main(int argc, char *argv[])
     dico.afficherMots();
 
     dico.modifierMot();
+
     //return a.exec();
 }
