@@ -11,6 +11,7 @@ void Dictionnaire::construireMot(int idmot, QString nom, QString Def, QList<QStr
     definition maDef = definition(Def);
     Mot nouveauMot = Mot(idmot, nom,maDef,tabTag);
     liste.append(nouveauMot);
+
 }
 
 void Dictionnaire::afficherMots()
