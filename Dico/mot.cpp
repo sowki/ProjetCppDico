@@ -8,7 +8,6 @@ Mot::Mot(int idmot, QString monNom, definition def, QList<QString> lstTag) :
     nom = monNom;
     //ajouter liste tag
     tabTag = QList<QString>(lstTag);
-
 }
 
 Mot::Mot():

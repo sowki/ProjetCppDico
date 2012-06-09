@@ -6,6 +6,7 @@
 class Mot
 {
 public:
+
     Mot(int idmot, QString monNom, definition def, QList<QString> lstTag);
     Mot();
     QString getNom();

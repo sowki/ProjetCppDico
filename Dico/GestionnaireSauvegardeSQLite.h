@@ -9,6 +9,7 @@
 
 class GestionnaireSauvegardeSQLite : public GestionnaireSauvegarde, public QObject
 {
+
 public:
     GestionnaireSauvegardeSQLite(QObject* parent = 0);
     ~GestionnaireSauvegardeSQLite();

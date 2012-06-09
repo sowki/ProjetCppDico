@@ -12,6 +12,7 @@ public:
     void Demarrer();
     void construireMot(int idmot, QString nom, QString Def, QList<QString> tabTag);
     void afficherMots();
+
 };
 
 #endif // DICTIONNAIRE_H

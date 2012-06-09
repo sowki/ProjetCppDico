@@ -14,6 +14,7 @@ GestionnaireSauvegardeSQLite::GestionnaireSauvegardeSQLite(QObject* parent)
 {
 }
 
+
 GestionnaireSauvegardeSQLite::~GestionnaireSauvegardeSQLite()
 {
     if (m_db.isOpen()){
