@@ -10,7 +10,7 @@ private:
 public:
     Dictionnaire();
     void Demarrer();
-    void construireMot(QString nom, QString Def, QList<QString> tabTag);
+    void construireMot(int idmot, QString nom, QString Def, QList<QString> tabTag);
     void afficherMots();
 };
 

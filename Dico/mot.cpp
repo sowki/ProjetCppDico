@@ -1,9 +1,10 @@
 #include "mot.h"
 
-Mot::Mot(QString monNom, definition def, QList<QString> lstTag) :
+Mot::Mot(int idmot, QString monNom, definition def, QList<QString> lstTag) :
     defMot(def)
 {
     //defMot(def);
+    motid = idmot;
     nom = monNom;
     //ajouter liste tag
     tabTag = QList<QString>(lstTag);

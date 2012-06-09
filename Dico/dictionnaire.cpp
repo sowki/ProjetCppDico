@@ -6,10 +6,10 @@ Dictionnaire::Dictionnaire()
     liste = QList<Mot>();
 }
 
-void Dictionnaire::construireMot(QString nom, QString Def, QList<QString> tabTag)
+void Dictionnaire::construireMot(int idmot, QString nom, QString Def, QList<QString> tabTag)
 {
     definition maDef = definition(Def);
-    Mot nouveauMot = Mot(nom,maDef,tabTag);
+    Mot nouveauMot = Mot(idmot, nom,maDef,tabTag);
     liste.append(nouveauMot);
 }
 

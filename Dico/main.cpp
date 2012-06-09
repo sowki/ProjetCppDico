@@ -29,6 +29,7 @@ int main(int argc, char *argv[])
     Dictionnaire dico;
     GestionnaireSauvegardeSQLite SQL;
     SQL.initDB();
+    SQL.selectMot();
     //SQL.selectMot("orange (fruit)");
     SQL.chargerTout(&dico);
     dico.afficherMots();

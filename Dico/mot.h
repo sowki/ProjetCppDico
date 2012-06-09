@@ -6,7 +6,7 @@
 class Mot
 {
 public:
-    Mot(QString monNom, definition def, QList<QString> lstTag);
+    Mot(int idmot, QString monNom, definition def, QList<QString> lstTag);
     Mot();
     QString getNom();
     QString getDefinition();
@@ -17,6 +17,7 @@ public:
     void AfficheMot();
     ~Mot();
 private:
+    int motid;
     QList<QString> tabTag;
     definition defMot;
     QString nom;

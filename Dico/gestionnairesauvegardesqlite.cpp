@@ -23,7 +23,7 @@ GestionnaireSauvegardeSQLite::~GestionnaireSauvegardeSQLite()
 
 void GestionnaireSauvegardeSQLite::chargerMotsContenant(QString souschaine, Dictionnaire *dico, bool effacerExistant)
 {
-    //on cherche en BDD les mots qui se rapportent à la sous-chaine
+    //on cherche en BDD les mots qui se rapportent �  la sous-chaine
     QString selectall = "SELECT motid, nomMot, texte, nomTag  FROM Mots, Tags, Definitions, Apourdef, Apourtag WHERE Mots.motid = Apourdef.FK_Motid AND Definitions.defid = Apourdef.FK_Defid AND Apourdef.apdid = Apourtag.FK_apdid AND Tags.tagid = Apourtag.FK_Tagid AND Mots.nomMot LIKE '"+ souschaine +"' ";
     QSqlQuery query = m_db.exec(selectall);
     m_db.commit();
@@ -45,7 +45,7 @@ void GestionnaireSauvegardeSQLite::chargerMotsContenant(QString souschaine, Dict
      listag.append(query.value(3).toString());
      while (query.next())
      {
-         if(motid == query.value(0).toInt())
+         if(motid == query.value(0).toInt())//si on est toujours sur le meme mot, on ne fait qu'ajouter le tag � la liste
          {
              listag.append(query.value(3).toString());
          }
@@ -53,7 +53,7 @@ void GestionnaireSauvegardeSQLite::chargerMotsContenant(QString souschaine, Dict
          {
              //on est sur un autre mot !
              //on crée le mot :
-             dico->construireMot(mot,texte,listag);
+             dico->construireMot(motid, mot,texte,listag);
              //on se prépare pour le prochain mot
              motid = query.value(0).toInt();
              listag.clear();
@@ -67,7 +67,7 @@ void GestionnaireSauvegardeSQLite::chargerMotsContenant(QString souschaine, Dict
      if(listag.length() > 0)
      {
          //on crée le mot :
-         dico->construireMot(mot,texte,listag);
+         dico->construireMot(motid, mot,texte,listag);
      }
 
 
@@ -81,7 +81,7 @@ void GestionnaireSauvegardeSQLite::debugConsole(QSqlQuery &query)
 }
 
 
-void GestionnaireSauvegardeSQLite::selectMot(QString mot)
+void GestionnaireSauvegardeSQLite::selectMot()
 {
    QString select = "SELECT * FROM Mots";
    QSqlQuery query = m_db.exec(select);
@@ -98,7 +98,7 @@ void GestionnaireSauvegardeSQLite::selectMot(QString mot)
 
 void GestionnaireSauvegardeSQLite::sauvegarderMot( Mot& mot)
 {
-    //à refaire
+    //�  refaire
     if (openDB() == false) {
         qWarning("Impossible de sauvegarder le mot " + mot.getNom().toLatin1() +" car la base n'est pas ouverte");
         return;
@@ -137,7 +137,7 @@ void GestionnaireSauvegardeSQLite::chargerTout(Dictionnaire* dico, bool effacerE
             {
                 //on est sur un autre mot !
                 //on crée le mot :
-                dico->construireMot(mot,texte,listag);
+                dico->construireMot(motid, mot,texte,listag);
                 //on se prépare pour le prochain mot
                 motid = query.value(0).toInt();
                 listag.clear();
@@ -151,7 +151,7 @@ void GestionnaireSauvegardeSQLite::chargerTout(Dictionnaire* dico, bool effacerE
         if(listag.length() > 0)
         {
             //on crée le mot :
-            dico->construireMot(mot,texte,listag);
+            dico->construireMot(motid, mot,texte,listag);
         }
 
 
@@ -229,4 +229,6 @@ bool GestionnaireSauvegardeSQLite::createTables()
         queryQSQL = m_db.exec(query);
         m_db.commit();
     }
+
+    return true;
 }

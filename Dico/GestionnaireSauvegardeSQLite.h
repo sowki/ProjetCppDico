@@ -18,7 +18,7 @@ public:
     void chargerMotsContenant(QString souschaine, Dictionnaire* dico, bool effacerExistant=false);
     void sauvegarderMot(Mot &mot);
     void initDB();
-    void selectMot(QString mot);
+    void selectMot();
 
 
 
